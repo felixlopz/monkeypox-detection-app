@@ -1,13 +1,14 @@
 import styled from 'styled-components/native'
 import { Stack } from 'expo-router'
 import LinkButton from 'src/components/LinkButton'
+import { i18n } from 'src/services/i18n'
 
 export default function HomeScreen() {
   return (
     <S.Wrapper testID="home-screen">
       <Stack.Screen options={{ title: 'Home Screen', headerShown: false }} />
 
-      <S.Title testID="home-screen-title">🏠 Home Screen 🏠</S.Title>
+      <S.Title testID="home-screen-title">{i18n.t('welcome')}</S.Title>
       <S.Text testID="home-screen-text">Go to src/screens/Home.tsx to edit</S.Text>
 
       <LinkButton href="/history" text="Go To Second Screen" />

@@ -1,6 +1,6 @@
 - [x] Add typescript
 - [x] Run project on the web
-- [ ] Set up localization
+- [x] Set up localization
 - [x] Implement Routing
       [x] Implement Routing for web
       [x] Implement Rotuing for mobile
