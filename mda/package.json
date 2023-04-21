@@ -1,4 +1,5 @@
 {
+  "license": "MIT",
   "name": "expo-router-typescript",
   "scripts": {
     "build:android": "npx eas-cli build --platform android",
