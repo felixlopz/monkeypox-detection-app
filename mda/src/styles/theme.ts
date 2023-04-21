@@ -1,5 +1,11 @@
-import type { DefaultTheme } from 'styled-components'
-import { dimensions, height, width } from './dimensions'
+import type {DefaultTheme} from 'styled-components'
+import {dimensions, height, width} from './dimensions'
+
+export const fontFamilies = {
+  robotoBold: 'Roboto_700Bold',
+  robotoRegular: 'Roboto_400Regular',
+  pacificoRegular: 'Pacifico_400Regular'
+}
 
 export const appTheme: DefaultTheme = {
   background: '#FFF',
@@ -12,7 +18,8 @@ export const appTheme: DefaultTheme = {
   highlight: '#FF2353',
   dimensions,
   windowHeight: `${height}px`,
-  windowWidth: `${width}px`
+  windowWidth: `${width}px`,
+  ...fontFamilies
 }
 
 export const navTheme = {

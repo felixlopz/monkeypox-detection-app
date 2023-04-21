@@ -10,9 +10,11 @@
         [x] Modify the interface to include react native button props
 - [x] Fix App Header
 - [x] Add custom Fonts
-- [ ] Style Home Page
+- [x] Style Home Page
 - [ ] Take photos or select from gallery
       [ ] When ready go to processing screen
       [ ] Processing screen
 - [ ] Take the photo
       [ ] List
+- [ ] SplashScreen
+- [ ] Copys for homepage
