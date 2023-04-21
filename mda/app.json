@@ -8,26 +8,22 @@
     "icon": "./src/assets/images/app-icon.png",
     "splash": {
       "image": "./src/assets/images/splash.png",
-      "backgroundColor": "#222"
+      "backgroundColor": "#FFF"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/app-icon.png",
-        "backgroundColor": "#222"
+        "backgroundColor": "#FFF"
       }
     },
     "web": {
       "favicon": "./src/assets/images/app-icon.png",
       "bundler": "metro"
     },
-    "plugins": [
-      "expo-localization"
-    ]
+    "plugins": ["expo-localization"]
   }
 }

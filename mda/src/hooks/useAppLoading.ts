@@ -1,10 +1,16 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Platform } from 'react-native'
-import { useFonts } from 'expo-font'
+import {useEffect, useMemo, useState} from 'react'
+import {Platform} from 'react-native'
+import {useFonts} from 'expo-font'
+import {Roboto_400Regular, Roboto_700Bold} from '@expo-google-fonts/roboto'
+import {Pacifico_400Regular} from '@expo-google-fonts/pacifico'
 
 export default function useAppLoading() {
   const [appLoaded, setAppLoaded] = useState(false)
-  const [fonts] = useFonts({ helvetica: require('src/assets/fonts/helvetica.otf') })
+  const [fonts] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+    Pacifico_400Regular
+  })
   const isWeb = useMemo(() => Platform.OS === 'web', [])
 
   // Set Web CSS Styles
