@@ -24,6 +24,14 @@
       "favicon": "./src/assets/images/app-icon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-localization"]
+    "plugins": [
+      "expo-localization",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ]
+    ]
   }
 }

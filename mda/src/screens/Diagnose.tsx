@@ -1,12 +1,26 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import styled from 'styled-components/native'
+import {Stack} from 'expo-router'
+import {i18n} from 'src/services/i18n'
+import {CameraComponent} from 'src/components'
 
-export default function Diagnostic() {
+export const Diagnostic = () => {
   return (
-    <View>
-      <Text>Diagnostic</Text>
-    </View>
+    <S.Wrapper>
+      <Stack.Screen options={{title: i18n.t('screens.diagnose')}} />
+      <S.Container>
+        <CameraComponent />
+      </S.Container>
+    </S.Wrapper>
   )
 }
 
-const styles = StyleSheet.create({})
+export default Diagnostic
+
+const S = {
+  Wrapper: styled.View`
+    flex: 1;
+  `,
+  Container: styled.View`
+    flex: 1;
+  `
+}

@@ -1,9 +1,9 @@
 const en = {
   welcome: 'Hello Mother Motherfuckers',
   screens: {
-    home: 'home',
-    diagnose: 'diagnose',
-    history: 'history'
+    home: 'Home',
+    diagnose: 'Diagnose',
+    history: 'History'
   },
   home: {
     monkeypoxFactTitle: 'About Monkeypox',
@@ -18,9 +18,9 @@ const en = {
 const es = {
   welcome: 'Hola Mamaguebos',
   screens: {
-    home: 'inicio',
-    diagnose: 'diagnosticar',
-    history: 'historial'
+    home: 'Inicio',
+    diagnose: 'Diagnosticar',
+    history: 'Historial'
   },
   home: {
     monkeypoxFactTitle: 'La Viruela del Mono',

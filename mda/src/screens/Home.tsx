@@ -78,7 +78,7 @@ const S = {
     color: ${p => p.theme.text};
     font-weight: 400;
     font-family: ${p => p.theme.robotoRegular};
-    font-size: ${p => p.theme.dimensions(12, 'px')};
-    line-height: ${p => p.theme.dimensions(18, 'px')};
+    font-size: ${p => p.theme.dimensions(14, 'px')};
+    line-height: ${p => p.theme.dimensions(20, 'px')};
   `
 }
