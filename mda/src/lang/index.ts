@@ -12,6 +12,9 @@ const en = {
     appFactTitle: 'About the app',
     appFactText:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin vestibulum eu nibh id vehicula. Nullam lorem ligula, blandit in nisl non, euismod lobortis odio. Quisque quis sapien arcu. Etiam sed diam ultricies, venenatis ligula nec, ultrices enim. Donec eget purus quis nisi sollicitudin iaculis non vitae dui. Aenean facilisis, nisi ac laoreet aliquet, urna libero interdum leo, sed bibendum orci lacus ut massa. Duis in massa ac urna consequat interdum id ut sem. Vivamus quam lectus, dapibus et gravida eget, molestie eget urna.'
+  },
+  diagnose: {
+    processing: 'Analyzing image'
   }
 }
 
@@ -29,6 +32,9 @@ const es = {
     appFactTitle: 'Acerca de la app',
     appFactText:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin vestibulum eu nibh id vehicula. Nullam lorem ligula, blandit in nisl non, euismod lobortis odio. Quisque quis sapien arcu. Etiam sed diam ultricies, venenatis ligula nec, ultrices enim. Donec eget purus quis nisi sollicitudin iaculis non vitae dui. Aenean facilisis, nisi ac laoreet aliquet, urna libero interdum leo, sed bibendum orci lacus ut massa. Duis in massa ac urna consequat interdum id ut sem. Vivamus quam lectus, dapibus et gravida eget, molestie eget urna.'
+  },
+  diagnose: {
+    processing: 'Analizando Imagen'
   }
 }
 
