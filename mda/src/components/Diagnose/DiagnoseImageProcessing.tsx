@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react'
 import {Dimensions, Animated, Easing} from 'react-native'
 import {i18n} from 'src/services/i18n'
 import styled from 'styled-components/native'
+import {loadModel} from '../../services'
 
 interface DiagnoseImageProcessingProps {
   onImageProcessed: () => void
@@ -29,9 +30,9 @@ export const DiagnoseImageProcessing: React.FC<DiagnoseImageProcessingProps> = p
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      props.onImageProcessed()
-
+      // props.onImageProcessed()
       // Process image here
+      loadModel()
     }, 5000)
 
     return () => {

@@ -75,10 +75,9 @@ const S = {
   `,
   ImageContainer: styled.View`
     position: relative;
-    width: 60%;
+    width: 100%;
     aspect-ratio: 9 / 16;
     border-radius: ${p => p.theme.dimensions(8, 'px')};
-    background-color: pink;
     overflow: hidden;
   `,
   Image: styled.Image`
