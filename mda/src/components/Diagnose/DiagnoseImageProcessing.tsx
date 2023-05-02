@@ -33,7 +33,7 @@ export const DiagnoseImageProcessing: React.FC<DiagnoseImageProcessingProps> = p
       // props.onImageProcessed()
       // Process image here
       loadModel()
-    }, 5000)
+    }, 0)
 
     return () => {
       clearTimeout(timeout)
