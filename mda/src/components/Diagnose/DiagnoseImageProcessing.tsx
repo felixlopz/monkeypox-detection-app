@@ -1,11 +1,15 @@
-import {useEffect, useRef, useState} from 'react'
+import {Tensor, Rank} from '@tensorflow/tfjs'
+import {CameraCapturedPicture} from 'expo-camera'
+import {ImagePickerAsset} from 'expo-image-picker'
+import {useEffect, useState} from 'react'
 import {Dimensions, Animated, Easing} from 'react-native'
+import {preProcessImage} from 'src/services'
 import {i18n} from 'src/services/i18n'
 import styled from 'styled-components/native'
-import {loadModel} from '../../services'
 
 interface DiagnoseImageProcessingProps {
-  onImageProcessed: () => void
+  onImageProcessed: (batchedImage: Tensor<Rank>) => void
+  image: CameraCapturedPicture | ImagePickerAsset
 }
 
 export const DiagnoseImageProcessing: React.FC<DiagnoseImageProcessingProps> = props => {
@@ -28,17 +32,16 @@ export const DiagnoseImageProcessing: React.FC<DiagnoseImageProcessingProps> = p
     outputRange: ['0deg', '360deg']
   })
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      // props.onImageProcessed()
-      // Process image here
-      loadModel()
-    }, 0)
+  const processImage = async () => {
+    // try {
+    //   await preProcessImage(props.image)
+    //   console.log('Finished Preprocessing')
+    // } catch (error) {
+    //   console.log(error)
+    // }
+  }
 
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <S.Wrapper>

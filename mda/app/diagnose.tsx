@@ -1,1 +1,1 @@
-export { default } from '../src/screens/Diagnose'
+export {default} from '../src/screens/Diagnose/Diagnose'

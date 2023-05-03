@@ -14,10 +14,11 @@ export const ImagePickerComponent: React.FC<ImageAcquirerProps> = props => {
   async function pickImage() {
     let result: ImagePicker.ImagePickerResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
+      allowsEditing: false,
+      aspect: [1, 1],
       quality: 1,
-      allowsMultipleSelection: false
+      allowsMultipleSelection: false,
+      base64: true
     })
 
     if (result != null && result.canceled != null && result.canceled == false && result.assets != null && result.assets[0] != null) {
@@ -53,7 +54,8 @@ export const CameraComponent: React.FC<ImageAcquirerProps> = props => {
     try {
       const image = await ref.current.takePictureAsync({
         quality: 1,
-        imageType: ImageType.jpg
+        imageType: ImageType.jpg,
+        base64: true
       })
 
       props.onImageAcquired(image)
