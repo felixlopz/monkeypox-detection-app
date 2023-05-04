@@ -2,52 +2,37 @@ import styled from 'styled-components/native'
 import {Stack} from 'expo-router'
 import {i18n} from 'src/services/i18n'
 import {DiagnoseImageAcquirer, DiagnoseImageReporting} from 'src/components'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {CameraCapturedPicture} from 'expo-camera'
 import {ImagePickerAsset} from 'expo-image-picker'
 import DiagnoseImageProcessing from 'src/components/Diagnose/DiagnoseImageProcessing'
 import {Tensor, Rank} from '@tensorflow/tfjs'
 
-import {connect} from 'react-redux'
+import {connect, useDispatch, useSelector} from 'react-redux'
 import {
   DiagnoseProcessStatus,
   setProcessStatus,
-  CapturedImageType,
-  setCapturedImage
-} from './store/DiagnoseSlice'
-import {RootState} from '../../store'
-import {Dispatch} from 'redux'
-
-interface StateFromProps {
-  processStatus: DiagnoseProcessStatus
-  capturedImage: CapturedImageType
-}
-
-interface DispatchFromProps {
-  setDiagnoseProcessStatus: (processStatus: DiagnoseProcessStatus) => void
-  setCapturedImage: (image: CapturedImageType) => void
-}
-
-type Props = StateFromProps & DispatchFromProps & {}
-
-export const Diagnostic: React.FC<Props> = ({
-  processStatus,
-  capturedImage,
-  setDiagnoseProcessStatus,
   setCapturedImage,
-  ...props
-}) => {
+  selectDiagnoseProcessStatus,
+  selectCapturedImage
+} from './store/DiagnoseSlice'
+
+export const Diagnostic = () => {
+  const dispatch = useDispatch()
+  const processStatus = useSelector(selectDiagnoseProcessStatus)
+  const capturedImage = useSelector(selectCapturedImage)
+
   const [batchedImage, setBatchedImage] = useState<Tensor<Rank> | undefined>(
     undefined
   )
 
   function onImageAcquired(image: CameraCapturedPicture | ImagePickerAsset) {
-    setCapturedImage(image)
-    setDiagnoseProcessStatus(DiagnoseProcessStatus.Processing)
+    dispatch(setCapturedImage(image))
+    dispatch(setProcessStatus(DiagnoseProcessStatus.Processing))
   }
 
   function onImageProcessed(batchedImage: Tensor<Rank>) {
-    setDiagnoseProcessStatus(DiagnoseProcessStatus.Reporting)
+    setProcessStatus(DiagnoseProcessStatus.Reporting)
   }
 
   return (
@@ -73,25 +58,7 @@ export const Diagnostic: React.FC<Props> = ({
   )
 }
 
-function mapStateToProps(state: RootState): StateFromProps {
-  return {
-    processStatus: state.diagnoseScreen.processStatus,
-    capturedImage: state.diagnoseScreen.capturedImage
-  }
-}
-
-function mapDispatchToProps(dispatch: Dispatch): DispatchFromProps {
-  return {
-    setDiagnoseProcessStatus: (processStatus: DiagnoseProcessStatus) => {
-      return dispatch(setProcessStatus(processStatus))
-    },
-    setCapturedImage: (image: CapturedImageType) => {
-      return dispatch(setCapturedImage(image))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Diagnostic)
+export default connect()(Diagnostic)
 
 const S = {
   Wrapper: styled.View`

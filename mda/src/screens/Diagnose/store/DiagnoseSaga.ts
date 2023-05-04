@@ -6,8 +6,6 @@ import {
   selectDiagnoseProcessStatus
 } from './DiagnoseSlice'
 
-function* checkInitialState() {}
-
 function* diagnoseProcessStatusChanged() {
   const processStatus: DiagnoseProcessStatus = yield select(
     selectDiagnoseProcessStatus
@@ -21,8 +19,6 @@ function* diagnoseProcessStatusChanged() {
 }
 
 export function* diagnoseSagaWatcher() {
-  yield takeLatest([RootActionTypes.InitApplication], checkInitialState)
-
   yield takeEvery(
     [DiagnoseActionTypes.DiagnoseSetprocessStatus],
     diagnoseProcessStatusChanged
