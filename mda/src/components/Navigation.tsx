@@ -7,19 +7,9 @@ import FontAwesome from '@expo/vector-icons/FontAwesome'
 import {Splash} from '../screens/Splash'
 import {connect, useDispatch, useSelector} from 'react-redux'
 import {initApplication} from '../store/rootActions'
-import {RootState} from 'src/store/rootReducer'
-import {Dispatch} from 'redux'
-import {selectAppLoaded, selectModelLoaded} from '../store/appSlice'
+import {selectAppLoaded} from '../store/appSlice'
 
-interface StateFromProps {
-  modelLoaded: boolean
-}
-
-interface DispatchFromProps {}
-
-type Props = StateFromProps & DispatchFromProps & {}
-
-export const Navigation: React.FC<Props> = () => {
+export const Navigation = () => {
   const dispatch = useDispatch()
   const appLoaded: boolean = useSelector(selectAppLoaded)
 
@@ -92,17 +82,7 @@ export const Navigation: React.FC<Props> = () => {
   )
 }
 
-function mapStateToProps(state: RootState): StateFromProps {
-  return {
-    modelLoaded: state.app.modelLoaded
-  }
-}
-
-function mapDispatchToProps(dispatch: Dispatch): DispatchFromProps {
-  return {}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
+export default connect()(Navigation)
 
 const S = {
   AppWrapper: styled.View`
