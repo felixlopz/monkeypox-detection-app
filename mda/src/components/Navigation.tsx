@@ -8,6 +8,7 @@ import {Splash} from '../screens/Splash'
 import {connect, useDispatch, useSelector} from 'react-redux'
 import {initApplication} from '../store/rootActions'
 import {selectAppLoaded} from '../store/appSlice'
+import {dimensions} from 'src/styles/dimensions'
 
 export const Navigation = () => {
   const dispatch = useDispatch()
@@ -23,11 +24,12 @@ export const Navigation = () => {
     <S.AppWrapper>
       <Tabs
         screenOptions={{
-          headerStatusBarHeight: 30,
+          headerStatusBarHeight: Number(dimensions(40, '')),
           headerStyle: styles.header,
           headerBackgroundContainerStyle: styles.header,
           headerTitle: 'mda',
           headerTitleAlign: 'center',
+          headerTitleContainerStyle: {},
           headerTitleStyle: {
             fontFamily: 'Pacifico_400Regular',
             color: appTheme.secondary,
@@ -93,12 +95,12 @@ const S = {
 }
 
 const styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: appTheme.backdround,
-    height: 95
-  },
   header: {
     backgroundColor: appTheme.backdround,
-    height: 80
+    height: Number(dimensions(100, ''))
+  },
+  tabBar: {
+    backgroundColor: appTheme.backdround,
+    height: Number(dimensions(90, ''))
   }
 })
