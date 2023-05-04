@@ -15,7 +15,9 @@ const modelWeights = [
 export async function loadModel(): Promise<tf.LayersModel | null> {
   try {
     await tf.ready()
-    const model = await tf.loadLayersModel(bundleResourceIO(modelJson, [...modelWeights]))
+    const model = await tf.loadLayersModel(
+      bundleResourceIO(modelJson, [...modelWeights])
+    )
     return model
   } catch (error) {
     console.log(error)
@@ -23,7 +25,9 @@ export async function loadModel(): Promise<tf.LayersModel | null> {
   }
 }
 
-export async function preProcessImage(image: CameraCapturedPicture | ImagePickerAsset): Promise<Tensor<Rank> | null> {
+export async function preProcessImage(
+  image: CameraCapturedPicture | ImagePickerAsset
+): Promise<Tensor<Rank> | null> {
   setTimeout(() => {}, 5000)
 
   return null

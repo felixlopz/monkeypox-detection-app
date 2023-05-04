@@ -8,10 +8,16 @@ import {
 
 function* checkInitialState() {}
 
-export function* diagnoseProcessStatusChanged() {
+function* diagnoseProcessStatusChanged() {
   const processStatus: DiagnoseProcessStatus = yield select(
     selectDiagnoseProcessStatus
   )
+
+  // if processStatus == Processing
+  // Call the function that process the image and sets the data to store
+  // else if processStatus == Reporting
+  // Call a function that use and predict the model
+  //
 }
 
 export function* diagnoseSagaWatcher() {

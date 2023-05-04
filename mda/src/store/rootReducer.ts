@@ -1,10 +1,13 @@
 import {combineReducers} from '@reduxjs/toolkit'
 import {diagnoseReducer, DiagnoseState} from '../screens'
+import {appReducer, AppState} from './appSlice'
 
 export interface RootState {
   diagnoseScreen: DiagnoseState
+  app: AppState
 }
 
 export const rootReducer = combineReducers<RootState>({
-  diagnoseScreen: diagnoseReducer
+  diagnoseScreen: diagnoseReducer,
+  app: appReducer
 })

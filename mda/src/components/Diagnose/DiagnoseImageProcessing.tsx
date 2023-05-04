@@ -3,7 +3,6 @@ import {CameraCapturedPicture} from 'expo-camera'
 import {ImagePickerAsset} from 'expo-image-picker'
 import {useEffect, useState} from 'react'
 import {Dimensions, Animated, Easing} from 'react-native'
-import {preProcessImage} from 'src/services'
 import {i18n} from 'src/services/i18n'
 import styled from 'styled-components/native'
 
@@ -12,7 +11,9 @@ interface DiagnoseImageProcessingProps {
   image: CameraCapturedPicture | ImagePickerAsset
 }
 
-export const DiagnoseImageProcessing: React.FC<DiagnoseImageProcessingProps> = props => {
+export const DiagnoseImageProcessing: React.FC<
+  DiagnoseImageProcessingProps
+> = props => {
   const [spinValue] = useState(new Animated.Value(0))
 
   // Loop Use Effect
@@ -31,17 +32,6 @@ export const DiagnoseImageProcessing: React.FC<DiagnoseImageProcessingProps> = p
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
   })
-
-  const processImage = async () => {
-    // try {
-    //   await preProcessImage(props.image)
-    //   console.log('Finished Preprocessing')
-    // } catch (error) {
-    //   console.log(error)
-    // }
-  }
-
-  useEffect(() => {}, [])
 
   return (
     <S.Wrapper>
@@ -79,7 +69,13 @@ const S = {
     width: 80%;
     height: 80%;
     opacity: 0.47;
-    border-radius: ${p => p.theme.dimensions(Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2, 'px')};
+    border-radius: ${p =>
+      p.theme.dimensions(
+        Math.round(
+          Dimensions.get('window').width + Dimensions.get('window').height
+        ) / 2,
+        'px'
+      )};
   `,
   ProcessingText: styled.Text`
     margin-top: ${p => p.theme.dimensions(40, 'px')};
