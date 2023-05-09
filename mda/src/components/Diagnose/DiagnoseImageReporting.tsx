@@ -16,7 +16,7 @@ interface DiagnoseImageProcessingReporting {
 
 export const DiagnoseImageReporting: React.FC<
   DiagnoseImageProcessingReporting
-> = props => {
+> = ({image}) => {
   const prediction = useSelector(selectPrediction)
 
   const predictionText = i18n.t(`reporting.${prediction}`)
@@ -27,13 +27,22 @@ export const DiagnoseImageReporting: React.FC<
     dispatch(setProcessStatus(DiagnoseProcessStatus.Acquiring))
   }
 
+  const constructImageName = (): string => {
+    const prefix = 'mda_capture_'
+    const date = new Date().toISOString().split('T')[0]
+    const extension = '.jpeg'
+    return prefix + date + extension
+  }
+
+  const imageName = constructImageName()
+
   return (
     <S.Wrapper>
       <S.Container>
         <S.ImageWrapper>
-          <S.ImageName>mda_capture_04_23_2023T4232.jpg</S.ImageName>
+          <S.ImageName>{imageName}</S.ImageName>
           <S.ImageContainer>
-            <S.Image source={{uri: props.image.uri}} />
+            <S.Image source={{uri: image.uri}} />
           </S.ImageContainer>
         </S.ImageWrapper>
 
