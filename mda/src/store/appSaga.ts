@@ -18,6 +18,7 @@ import {
   setModelLoaded,
   setModelLoadingError
 } from './appSlice'
+import {Platform} from 'react-native'
 
 function* initApplication() {
   console.log('initApplication')

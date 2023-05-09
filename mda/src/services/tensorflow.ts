@@ -1,12 +1,10 @@
 import * as tf from '@tensorflow/tfjs'
-import * as jpeg from 'jpeg-js'
 import {LayersModel} from '@tensorflow/tfjs'
 import {
   bundleResourceIO,
   decodeJpeg,
   fetch
 } from '@tensorflow/tfjs-react-native'
-import {ImageResult} from 'expo-image-manipulator'
 import {
   CapturedImageType,
   DiagnoseLabels
@@ -55,6 +53,10 @@ export async function makePrediction(
   processedImage: tf.Tensor<tf.Rank>,
   model: LayersModel
 ): Promise<DiagnoseLabels> {
+  if (model == null) {
+    return DiagnoseLabels.Undetermined
+  }
+
   const result = (
     model.predict(processedImage, {
       verbose: true,

@@ -1,11 +1,4 @@
-import {
-  delay,
-  put,
-  takeEvery,
-  takeLatest,
-  select,
-  call
-} from 'redux-saga/effects'
+import {put, takeEvery, select, call} from 'redux-saga/effects'
 import {
   CapturedImageType,
   DiagnoseActionTypes,
@@ -13,6 +6,7 @@ import {
   DiagnoseProcessStatus,
   selectCapturedImage,
   selectDiagnoseProcessStatus,
+  setCapturedImage,
   setPrediction,
   setProcessStatus
 } from './DiagnoseSlice'
@@ -25,7 +19,10 @@ function* diagnoseProcessStatusChanged() {
     selectDiagnoseProcessStatus
   )
 
-  if (processStatus === DiagnoseProcessStatus.Processing) {
+  if (processStatus === DiagnoseProcessStatus.Acquiring) {
+    yield put(setCapturedImage(null))
+    yield put(setPrediction(DiagnoseLabels.Undetermined))
+  } else if (processStatus === DiagnoseProcessStatus.Processing) {
     yield call(processImageAndMakePrediction)
     yield put(setProcessStatus(DiagnoseProcessStatus.Reporting))
   }
@@ -35,15 +32,18 @@ function* processImageAndMakePrediction() {
   const capturedImage: CapturedImageType = yield select(selectCapturedImage)
   const model: LayersModel = yield select(selectModel)
 
-  const processedImage: Tensor<Rank> = yield call(processImage, capturedImage)
+  try {
+    const processedImage: Tensor<Rank> = yield call(processImage, capturedImage)
 
-  const prediction: DiagnoseLabels = yield call(
-    makePrediction,
-    processedImage,
-    model
-  )
-
-  yield put(setPrediction(prediction))
+    const prediction: DiagnoseLabels = yield call(
+      makePrediction,
+      processedImage,
+      model
+    )
+    yield put(setPrediction(prediction))
+  } catch (error) {
+    yield put(setPrediction(DiagnoseLabels.Undetermined))
+  }
 }
 
 export function* diagnoseSagaWatcher() {

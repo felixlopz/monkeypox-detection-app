@@ -1,5 +1,4 @@
 const en = {
-  welcome: 'Hello Mother Motherfuckers',
   screens: {
     home: 'Home',
     diagnose: 'Diagnose',
@@ -15,11 +14,20 @@ const en = {
   },
   diagnose: {
     processing: 'Analyzing image'
+  },
+  reporting: {
+    Chickenpox: 'Chickenpox',
+    Measles: 'Measles',
+    Monkeypox: 'Monkeypox',
+    Normal: 'Normal',
+    Undetermined: 'Undetermined',
+    reportMessage: 'The result of the image analysis was:',
+    analyzeOther: 'Analyze Other',
+    saveResult: 'Save Result'
   }
 }
 
 const es = {
-  welcome: 'Hola Mamaguebos',
   screens: {
     home: 'Inicio',
     diagnose: 'Diagnosticar',
@@ -35,6 +43,16 @@ const es = {
   },
   diagnose: {
     processing: 'Analizando Imagen'
+  },
+  reporting: {
+    Chickenpox: 'Varicela',
+    Measles: 'Sarampión',
+    Monkeypox: 'Viruela del mono',
+    Normal: 'Normal',
+    Undetermined: 'Indeterminado',
+    reportMessage: 'El resultado del análisis de imagen fue:',
+    analyzeOther: 'Analizar Otra Vez',
+    saveResult: 'Guardar Resultado'
   }
 }
 

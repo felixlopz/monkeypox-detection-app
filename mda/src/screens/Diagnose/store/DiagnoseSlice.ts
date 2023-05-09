@@ -13,7 +13,8 @@ export enum DiagnoseLabels {
   Chickenpox = 'Chickenpox',
   Measles = 'Measles',
   Monkeypox = 'Monkeypox',
-  Normal = 'Normal'
+  Normal = 'Normal',
+  Undetermined = 'Undetermined'
 }
 
 export type CapturedImageType = CameraCapturedPicture | ImagePickerAsset | null
@@ -21,7 +22,7 @@ export type CapturedImageType = CameraCapturedPicture | ImagePickerAsset | null
 export interface DiagnoseState {
   processStatus: DiagnoseProcessStatus
   capturedImage: CapturedImageType
-  prediction: DiagnoseLabels | undefined
+  prediction: DiagnoseLabels
 }
 
 export enum DiagnoseActionTypes {
@@ -32,7 +33,7 @@ export enum DiagnoseActionTypes {
 const initialState: DiagnoseState = {
   processStatus: DiagnoseProcessStatus.Acquiring,
   capturedImage: null,
-  prediction: undefined
+  prediction: DiagnoseLabels.Undetermined
 }
 
 const diagnoseSlice = createSlice({

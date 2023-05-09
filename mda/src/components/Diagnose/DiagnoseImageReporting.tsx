@@ -1,8 +1,14 @@
 import {CameraCapturedPicture} from 'expo-camera'
 import {ImagePickerAsset} from 'expo-image-picker'
-import {useSelector} from 'react-redux'
-import {selectPrediction} from 'src/screens/Diagnose/store/DiagnoseSlice'
+import {useDispatch, useSelector} from 'react-redux'
+import {
+  DiagnoseProcessStatus,
+  selectPrediction,
+  setProcessStatus
+} from 'src/screens/Diagnose/store/DiagnoseSlice'
 import styled from 'styled-components/native'
+import Button from '../Button'
+import {i18n} from 'src/services'
 
 interface DiagnoseImageProcessingReporting {
   image: CameraCapturedPicture | ImagePickerAsset
@@ -11,9 +17,15 @@ interface DiagnoseImageProcessingReporting {
 export const DiagnoseImageReporting: React.FC<
   DiagnoseImageProcessingReporting
 > = props => {
-  const percentange: number = 87
-
   const prediction = useSelector(selectPrediction)
+
+  const predictionText = i18n.t(`reporting.${prediction}`)
+
+  const dispatch = useDispatch()
+
+  const onAnalyzeOtherPress = () => {
+    dispatch(setProcessStatus(DiagnoseProcessStatus.Acquiring))
+  }
 
   return (
     <S.Wrapper>
@@ -24,21 +36,21 @@ export const DiagnoseImageReporting: React.FC<
             <S.Image source={{uri: props.image.uri}} />
           </S.ImageContainer>
         </S.ImageWrapper>
+
         <S.ReportWrapper>
-          <S.PercentangeBarWrapper>
-            <S.PercentangeBar>
-              <S.Progress />
-            </S.PercentangeBar>
-            <S.PercentangeText>{percentange}%</S.PercentangeText>
-          </S.PercentangeBarWrapper>
           <S.InfoWrapper>
-            <S.ReportTitle>{prediction}</S.ReportTitle>
+            <S.ReportTitle>{predictionText}</S.ReportTitle>
             <S.ReportMessage>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo
-              nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin
-              vestibulum eu nibh
+              {i18n.t('reporting.reportMessage')} {predictionText}
             </S.ReportMessage>
           </S.InfoWrapper>
+          <S.ButtonWrapper>
+            <S.Button
+              text={i18n.t('reporting.analyzeOther')}
+              onPress={onAnalyzeOtherPress}
+            />
+            <S.Button text={i18n.t('reporting.saveResult')} />
+          </S.ButtonWrapper>
         </S.ReportWrapper>
       </S.Container>
     </S.Wrapper>
@@ -50,14 +62,16 @@ export default DiagnoseImageReporting
 const S = {
   Wrapper: styled.ScrollView`
     flex: 1;
+    height: 100%;
+    display: flex;
     background-color: ${p => p.theme.background};
   `,
   Container: styled.View`
-    flex: 1;
+    max-width: ${p => p.theme.dimensions(500, 'px')};
     display: flex;
-    max-width: ${p => p.theme.dimensions(400, 'px')};
-    margin: 0 auto;
+    flex-direction: column;
     width: 100%;
+    margin: 0 auto;
     padding-left: ${p => p.theme.dimensions(14, 'px')};
     padding-right: ${p => p.theme.dimensions(14, 'px')};
     padding-top: ${p => p.theme.dimensions(4, 'px')};
@@ -69,7 +83,6 @@ const S = {
     padding-top: ${p => p.theme.dimensions(22, 'px')};
     padding-bottom: ${p => p.theme.dimensions(22, 'px')};
     border-radius: ${p => p.theme.dimensions(8, 'px')};
-    flex-basis: 60%;
     flex-grow: 1;
     display: flex;
     justify-content: center;
@@ -83,7 +96,7 @@ const S = {
   ImageContainer: styled.View`
     position: relative;
     width: 100%;
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 4 / 3;
     border-radius: ${p => p.theme.dimensions(8, 'px')};
     overflow: hidden;
   `,
@@ -95,46 +108,18 @@ const S = {
     top: 0;
   `,
   ReportWrapper: styled.View`
-    flex-basis: 40%;
     background-color: ${p => p.theme.backgroundLight};
     border-radius: ${p => p.theme.dimensions(8, 'px')};
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     padding-left: ${p => p.theme.dimensions(28, 'px')};
     padding-right: ${p => p.theme.dimensions(28, 'px')};
     padding-top: ${p => p.theme.dimensions(22, 'px')};
     padding-bottom: ${p => p.theme.dimensions(22, 'px')};
     margin-top: ${p => p.theme.dimensions(4, 'px')};
   `,
-  PercentangeBarWrapper: styled.View`
-    display: flex;
-    align-items: center;
-  `,
-  PercentangeBar: styled.View`
-    position: relative;
-    height: ${p => p.theme.dimensions(160, 'px')};
-    width: ${p => p.theme.dimensions(20, 'px')};
-    background-color: ${p => p.theme.backgroundDark};
-    border-radius: ${p => p.theme.dimensions(8, 'px')};
-    overflow: hidden;
-  `,
-  Progress: styled.View`
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    height: 80%;
-    background-color: ${p => p.theme.primary};
-  `,
-  PercentangeText: styled.Text`
-    font-size: ${p => p.theme.dimensions(16, 'px')};
-    font-family: ${p => p.theme.robotoBold};
-    color: ${p => p.theme.primary};
-    margin-top: ${p => p.theme.dimensions(10, 'px')};
-  `,
   InfoWrapper: styled.View`
-    max-width: ${p => p.theme.dimensions(220, 'px')};
+    width: 100%;
   `,
   ReportTitle: styled.Text`
     font-size: ${p => p.theme.dimensions(20, 'px')};
@@ -147,5 +132,17 @@ const S = {
     font-family: ${p => p.theme.robotoRegular};
     margin-bottom: ${p => p.theme.dimensions(19, 'px')};
     color: ${p => p.theme.text};
+  `,
+
+  ButtonWrapper: styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-self: center;
+    margin-top: ${p => p.theme.dimensions(20, 'px')};
+  `,
+  Button: styled(Button)`
+    margin-right: ${p => p.theme.dimensions(20, 'px')};
   `
 }

@@ -1,6 +1,5 @@
 import styled from 'styled-components/native'
 import {Stack} from 'expo-router'
-import LinkButton from 'src/components/LinkButton'
 import {appTheme} from '../styles/theme'
 
 export default function SecondScreen() {
@@ -8,8 +7,9 @@ export default function SecondScreen() {
     <S.Wrapper testID="second-screen">
       <Stack.Screen options={{title: 'History'}} />
       <S.Title testID="second-screen-title">🥈 History 🥈</S.Title>
-      <S.Text testID="second-screen-text">Go to src/screens/Second.tsx to edit</S.Text>
-      <LinkButton href="/" text="Go To Home Screen" />
+      <S.Text testID="second-screen-text">
+        Go to src/screens/Second.tsx to edit
+      </S.Text>
     </S.Wrapper>
   )
 }
