@@ -3,13 +3,9 @@ import {CapturedImageType} from 'src/screens'
 
 export async function resizeImageForModelPrediction(
   image: CapturedImageType
-): Promise<ImageResult | null> {
-  if (image == null) {
-    return null
-  }
-
+): Promise<ImageResult> {
   const resizedImage = await manipulateAsync(
-    image.uri,
+    image!.uri,
     [{resize: {width: 224, height: 224}}],
     {
       compress: 1,

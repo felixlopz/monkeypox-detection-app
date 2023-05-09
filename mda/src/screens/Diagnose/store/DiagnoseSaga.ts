@@ -16,11 +16,9 @@ import {
   setPrediction,
   setProcessStatus
 } from './DiagnoseSlice'
-import {resizeImageForModelPrediction} from 'src/utils/imageUtils'
-import {ImageResult} from 'expo-image-manipulator'
-import {makePrediction} from 'src/services'
+import {makePrediction, processImage} from 'src/services'
 import {selectModel} from 'src/store/appSlice'
-import {LayersModel} from '@tensorflow/tfjs'
+import {LayersModel, Rank, Tensor} from '@tensorflow/tfjs'
 
 function* diagnoseProcessStatusChanged() {
   const processStatus: DiagnoseProcessStatus = yield select(
@@ -35,21 +33,13 @@ function* diagnoseProcessStatusChanged() {
 
 function* processImageAndMakePrediction() {
   const capturedImage: CapturedImageType = yield select(selectCapturedImage)
-
-  const resizedImage: ImageResult = yield call(
-    resizeImageForModelPrediction,
-    capturedImage
-  )
-
-  if (resizedImage == null) {
-    return // Handle Error
-  }
-
   const model: LayersModel = yield select(selectModel)
+
+  const processedImage: Tensor<Rank> = yield call(processImage, capturedImage)
 
   const prediction: DiagnoseLabels = yield call(
     makePrediction,
-    resizedImage,
+    processedImage,
     model
   )
 
