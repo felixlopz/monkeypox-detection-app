@@ -9,9 +9,12 @@ import {
 import {
   CapturedImageType,
   DiagnoseActionTypes,
+  DiagnoseLabels,
   DiagnoseProcessStatus,
   selectCapturedImage,
-  selectDiagnoseProcessStatus
+  selectDiagnoseProcessStatus,
+  setPrediction,
+  setProcessStatus
 } from './DiagnoseSlice'
 import {resizeImageForModelPrediction} from 'src/utils/imageUtils'
 import {ImageResult} from 'expo-image-manipulator'
@@ -26,6 +29,7 @@ function* diagnoseProcessStatusChanged() {
 
   if (processStatus === DiagnoseProcessStatus.Processing) {
     yield call(processImageAndMakePrediction)
+    yield put(setProcessStatus(DiagnoseProcessStatus.Reporting))
   }
 }
 
@@ -41,15 +45,15 @@ function* processImageAndMakePrediction() {
     return // Handle Error
   }
 
-  const loadedModel: LayersModel = yield select(selectModel)
+  const model: LayersModel = yield select(selectModel)
 
-  const prediction: string = yield call(
+  const prediction: DiagnoseLabels = yield call(
     makePrediction,
     resizedImage,
-    loadedModel
+    model
   )
 
-  console.log(prediction)
+  yield put(setPrediction(prediction))
 }
 
 export function* diagnoseSagaWatcher() {

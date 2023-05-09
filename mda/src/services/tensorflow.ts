@@ -1,10 +1,13 @@
 import * as tf from '@tensorflow/tfjs'
 import * as jpeg from 'jpeg-js'
 import {LayersModel} from '@tensorflow/tfjs'
-import {bundleResourceIO, fetch} from '@tensorflow/tfjs-react-native'
-import {Image} from 'react-native'
+import {
+  bundleResourceIO,
+  decodeJpeg,
+  fetch
+} from '@tensorflow/tfjs-react-native'
 import {ImageResult} from 'expo-image-manipulator'
-import {DiagnoseArrayLabels} from 'src/screens/Diagnose/store/DiagnoseSlice'
+import {DiagnoseLabels} from 'src/screens/Diagnose/store/DiagnoseSlice'
 
 const modelJson = require('../assets/tfjs/model.json')
 
@@ -14,40 +17,27 @@ const modelWeights = [
   require('../assets/tfjs/group1-shard3of3.bin')
 ]
 
+const ModelInputShape = [1, 224, 224, 3] // Assuming RGB images with a batch size of 1
+
 export async function makePrediction(
   image: ImageResult,
   model: LayersModel
-): Promise<string> {
-  const tensorImage: tf.Tensor4D = await imageToTensor(image)
-  const result = await predict(tensorImage, model)
+): Promise<DiagnoseLabels> {
+  const response = await fetch(image.uri, {}, {isBinary: true})
+  const imageData = await response.arrayBuffer()
+  const imageArray = new Uint8Array(imageData)
+  const imageTensor = decodeJpeg(imageArray)
+  const normalizedArray = tf.div(imageTensor, 255.0)
+  const reshapedArray = tf.reshape(normalizedArray, ModelInputShape)
+  const result = model.predict(reshapedArray, {verbose: true, batchSize: 1})
   const probabilities = await result.array()
-  console.log(probabilities)
-
-  // Get the index of the highest probability
   const maxProbabilityIndex = probabilities[0].indexOf(
     Math.max(...probabilities[0])
   )
+  const predictedClass = Object.values(DiagnoseLabels)[maxProbabilityIndex]
 
-  // Map the index to the corresponding class label
-  const predictedClass = DiagnoseArrayLabels[maxProbabilityIndex]
-
+  tf.dispose([imageTensor, normalizedArray, reshapedArray, result])
   return predictedClass
-}
-
-async function predict(
-  tensorImage: tf.Tensor4D,
-  model: LayersModel
-): Promise<tf.Tensor<tf.Rank> | Array<tf.Tensor<tf.Rank>>> {
-  return new Promise((res, rej) => {
-    try {
-      const prediction = model.predict(tensorImage, {
-        verbose: true
-      })
-      res(prediction)
-    } catch (error) {
-      rej(error)
-    }
-  })
 }
 
 export async function loadModel(): Promise<LayersModel | null> {
@@ -62,28 +52,4 @@ export async function loadModel(): Promise<LayersModel | null> {
     console.log(error)
     return null
   }
-}
-
-// Extracted from https://github.com/btroia/react-native-image-recognition-object-detection/blob/main/screens/ClassifyImageScreen.tsx
-export async function imageToTensor(image: ImageResult): Promise<tf.Tensor4D> {
-  const imageAssetPath = Image.resolveAssetSource(image)
-  const response = await fetch(imageAssetPath.uri, {}, {isBinary: true})
-  const rawImageData = await response.arrayBuffer()
-
-  const {width, height, data} = jpeg.decode(rawImageData, {
-    useTArray: true
-  }) // return as Uint8Array
-
-  // Drop the alpha channel info for mobilenet
-  const buffer = new Uint8Array(width * height * 3)
-  let offset = 0 // offset into original data
-  for (let i = 0; i < buffer.length; i += 3) {
-    buffer[i] = data[offset]
-    buffer[i + 1] = data[offset + 1]
-    buffer[i + 2] = data[offset + 2]
-
-    offset += 4
-  }
-
-  return tf.tensor4d(buffer, [1, height, width, 3])
 }

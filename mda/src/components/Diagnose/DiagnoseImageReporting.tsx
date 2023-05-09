@@ -1,13 +1,19 @@
 import {CameraCapturedPicture} from 'expo-camera'
 import {ImagePickerAsset} from 'expo-image-picker'
+import {useSelector} from 'react-redux'
+import {selectPrediction} from 'src/screens/Diagnose/store/DiagnoseSlice'
 import styled from 'styled-components/native'
 
 interface DiagnoseImageProcessingReporting {
   image: CameraCapturedPicture | ImagePickerAsset
 }
 
-export const DiagnoseImageReporting: React.FC<DiagnoseImageProcessingReporting> = props => {
+export const DiagnoseImageReporting: React.FC<
+  DiagnoseImageProcessingReporting
+> = props => {
   const percentange: number = 87
+
+  const prediction = useSelector(selectPrediction)
 
   return (
     <S.Wrapper>
@@ -26,9 +32,10 @@ export const DiagnoseImageReporting: React.FC<DiagnoseImageProcessingReporting> 
             <S.PercentangeText>{percentange}%</S.PercentangeText>
           </S.PercentangeBarWrapper>
           <S.InfoWrapper>
-            <S.ReportTitle>Monkeypox</S.ReportTitle>
+            <S.ReportTitle>{prediction}</S.ReportTitle>
             <S.ReportMessage>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo
+              nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin
               vestibulum eu nibh
             </S.ReportMessage>
           </S.InfoWrapper>

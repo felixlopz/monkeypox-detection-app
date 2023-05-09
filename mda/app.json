@@ -1,5 +1,6 @@
 {
   "expo": {
+    "jsEngine": "jsc",
     "name": "Monkeypox Detection App",
     "slug": "monkeypox-detection-app",
     "scheme": "app",

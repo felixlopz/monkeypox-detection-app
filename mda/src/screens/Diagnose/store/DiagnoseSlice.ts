@@ -10,24 +10,18 @@ export enum DiagnoseProcessStatus {
 }
 
 export enum DiagnoseLabels {
-  Monkeypox = 'Monkeypox',
   Chickenpox = 'Chickenpox',
   Measles = 'Measles',
+  Monkeypox = 'Monkeypox',
   Normal = 'Normal'
 }
-
-export const DiagnoseArrayLabels = [
-  DiagnoseLabels.Chickenpox,
-  DiagnoseLabels.Measles,
-  DiagnoseLabels.Monkeypox,
-  DiagnoseLabels.Normal
-]
 
 export type CapturedImageType = CameraCapturedPicture | ImagePickerAsset | null
 
 export interface DiagnoseState {
   processStatus: DiagnoseProcessStatus
   capturedImage: CapturedImageType
+  prediction: DiagnoseLabels | undefined
 }
 
 export enum DiagnoseActionTypes {
@@ -37,7 +31,8 @@ export enum DiagnoseActionTypes {
 
 const initialState: DiagnoseState = {
   processStatus: DiagnoseProcessStatus.Acquiring,
-  capturedImage: null
+  capturedImage: null,
+  prediction: undefined
 }
 
 const diagnoseSlice = createSlice({
@@ -57,6 +52,13 @@ const diagnoseSlice = createSlice({
     ) => ({
       ...state,
       capturedImage: action.payload
+    }),
+    setPrediction: (
+      state: DiagnoseState,
+      action: PayloadAction<DiagnoseLabels>
+    ) => ({
+      ...state,
+      prediction: action.payload
     })
   }
 })
@@ -64,7 +66,8 @@ const diagnoseSlice = createSlice({
 export const diagnoseReducer = diagnoseSlice.reducer
 
 // Actions
-export const {setProcessStatus, setCapturedImage} = diagnoseSlice.actions
+export const {setProcessStatus, setCapturedImage, setPrediction} =
+  diagnoseSlice.actions
 
 // Selectors
 export const selectDiagnoseState = (state: RootState) => state.diagnoseScreen
@@ -77,4 +80,9 @@ export const selectDiagnoseProcessStatus = createSelector(
 export const selectCapturedImage = createSelector(
   selectDiagnoseState,
   (state: DiagnoseState) => state.capturedImage
+)
+
+export const selectPrediction = createSelector(
+  selectDiagnoseState,
+  (state: DiagnoseState) => state.prediction
 )

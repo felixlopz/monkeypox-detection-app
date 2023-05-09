@@ -13,7 +13,6 @@ export async function resizeImageForModelPrediction(
     [{resize: {width: 224, height: 224}}],
     {
       compress: 1,
-      base64: true,
       format: SaveFormat.JPEG
     }
   )
