@@ -69,3 +69,8 @@ export const selectAppLoaded = createSelector(
   selecAppState,
   (state: AppState) => state.appLoaded
 )
+
+export const selectModel = createSelector(
+  selecAppState,
+  (state: AppState) => state.model
+)

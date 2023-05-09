@@ -2,11 +2,9 @@ import styled from 'styled-components/native'
 import {Stack} from 'expo-router'
 import {i18n} from 'src/services/i18n'
 import {DiagnoseImageAcquirer, DiagnoseImageReporting} from 'src/components'
-import {useState} from 'react'
 import {CameraCapturedPicture} from 'expo-camera'
 import {ImagePickerAsset} from 'expo-image-picker'
 import DiagnoseImageProcessing from 'src/components/Diagnose/DiagnoseImageProcessing'
-import {Tensor, Rank} from '@tensorflow/tfjs'
 
 import {connect, useDispatch, useSelector} from 'react-redux'
 import {
@@ -22,17 +20,9 @@ export const Diagnostic = () => {
   const processStatus = useSelector(selectDiagnoseProcessStatus)
   const capturedImage = useSelector(selectCapturedImage)
 
-  const [batchedImage, setBatchedImage] = useState<Tensor<Rank> | undefined>(
-    undefined
-  )
-
   function onImageAcquired(image: CameraCapturedPicture | ImagePickerAsset) {
     dispatch(setCapturedImage(image))
     dispatch(setProcessStatus(DiagnoseProcessStatus.Processing))
-  }
-
-  function onImageProcessed(batchedImage: Tensor<Rank>) {
-    setProcessStatus(DiagnoseProcessStatus.Reporting)
   }
 
   return (
@@ -43,12 +33,7 @@ export const Diagnostic = () => {
           <DiagnoseImageAcquirer onImageAcquired={onImageAcquired} />
         )}
         {processStatus === DiagnoseProcessStatus.Processing &&
-          capturedImage != null && (
-            <DiagnoseImageProcessing
-              image={capturedImage}
-              onImageProcessed={onImageProcessed}
-            />
-          )}
+          capturedImage != null && <DiagnoseImageProcessing />}
         {processStatus === DiagnoseProcessStatus.Reporting &&
           capturedImage != null && (
             <DiagnoseImageReporting image={capturedImage} />

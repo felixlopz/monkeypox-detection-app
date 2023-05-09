@@ -1,9 +1,4 @@
-import {
-  createAction,
-  createSelector,
-  createSlice,
-  PayloadAction
-} from '@reduxjs/toolkit'
+import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '../../../store'
 import {CameraCapturedPicture} from 'expo-camera'
 import {ImagePickerAsset} from 'expo-image-picker'
@@ -14,10 +9,21 @@ export enum DiagnoseProcessStatus {
   Reporting = 'Reporting'
 }
 
-export type CapturedImageType =
-  | CameraCapturedPicture
-  | ImagePickerAsset
-  | undefined
+export enum DiagnoseLabels {
+  Monkeypox = 'Monkeypox',
+  Chickenpox = 'Chickenpox',
+  Measles = 'Measles',
+  Normal = 'Normal'
+}
+
+export const DiagnoseArrayLabels = [
+  DiagnoseLabels.Chickenpox,
+  DiagnoseLabels.Measles,
+  DiagnoseLabels.Monkeypox,
+  DiagnoseLabels.Normal
+]
+
+export type CapturedImageType = CameraCapturedPicture | ImagePickerAsset | null
 
 export interface DiagnoseState {
   processStatus: DiagnoseProcessStatus
@@ -31,7 +37,7 @@ export enum DiagnoseActionTypes {
 
 const initialState: DiagnoseState = {
   processStatus: DiagnoseProcessStatus.Acquiring,
-  capturedImage: undefined
+  capturedImage: null
 }
 
 const diagnoseSlice = createSlice({

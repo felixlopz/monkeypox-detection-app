@@ -1,15 +1,9 @@
-import {Tensor, Rank} from '@tensorflow/tfjs'
-import {CameraCapturedPicture} from 'expo-camera'
-import {ImagePickerAsset} from 'expo-image-picker'
 import {useEffect, useState} from 'react'
 import {Dimensions, Animated, Easing} from 'react-native'
 import {i18n} from 'src/services/i18n'
 import styled from 'styled-components/native'
 
-interface DiagnoseImageProcessingProps {
-  onImageProcessed: (batchedImage: Tensor<Rank>) => void
-  image: CameraCapturedPicture | ImagePickerAsset
-}
+interface DiagnoseImageProcessingProps {}
 
 export const DiagnoseImageProcessing: React.FC<
   DiagnoseImageProcessingProps
