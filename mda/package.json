@@ -15,7 +15,6 @@
     "serve:app": "expo start --dev-client",
     "serve:web": "npx serve web-build --single",
     "start": "expo start",
-    "test": "jest",
     "upgrade": "expo upgrade",
     "web": "expo start --web --no-dev --host localhost --port 3000"
   },

@@ -145,3 +145,5 @@ data
 
 # Errors
 *.log
+
+web-build
