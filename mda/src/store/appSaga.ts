@@ -25,9 +25,6 @@ import {
 } from 'src/screens/Diagnose/store/DiagnoseSlice'
 
 function* initApplication() {
-  console.log('initApplication')
-  console.log('Before using appLoading')
-
   try {
     yield call(loadAsync, {
       Roboto_400Regular,
@@ -48,8 +45,6 @@ function* initApplication() {
     yield put(setAppLoaded(false))
     yield put(setModelLoaded(false))
   }
-
-  console.log('AfterLoadingApp')
 }
 
 function* loadTensorflowModel() {
