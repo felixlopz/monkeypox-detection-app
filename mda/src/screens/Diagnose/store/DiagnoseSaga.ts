@@ -1,4 +1,4 @@
-import {put, takeEvery, select, call} from 'redux-saga/effects'
+import {put, takeEvery, select, call, delay} from 'redux-saga/effects'
 import {
   CapturedImageType,
   DiagnoseActionTypes,
@@ -24,6 +24,7 @@ function* diagnoseProcessStatusChanged() {
     yield put(setPrediction(DiagnoseLabels.Undetermined))
   } else if (processStatus === DiagnoseProcessStatus.Processing) {
     yield call(processImageAndMakePrediction)
+    yield delay(2000)
     yield put(setProcessStatus(DiagnoseProcessStatus.Reporting))
   }
 }

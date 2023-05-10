@@ -48,7 +48,8 @@ const S = {
     background-color: ${appTheme.background};
   `,
   FlatList: styled.FlatList`
-    width: 80%;
+    width: 95%;
+    max-width: 500px;
     margin-top: ${p => p.theme.dimensions(32, 'px')};
   `,
   Item: styled.View`
@@ -75,6 +76,7 @@ const S = {
   `,
   InfoWrapper: styled.View`
     margin-left: ${p => p.theme.dimensions(24, 'px')};
+    flex-grow: 1;
   `,
   Result: styled.Text`
     color: ${p => p.theme.title};
@@ -87,6 +89,6 @@ const S = {
     color: ${p => p.theme.text};
     font-weight: 400;
     font-family: ${p => p.theme.robotoRegular};
-    font-size: ${p => p.theme.dimensions(14, 'px')};
+    font-size: ${p => p.theme.dimensions(12, 'px')};
   `
 }

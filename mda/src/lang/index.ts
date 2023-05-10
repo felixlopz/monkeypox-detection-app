@@ -7,10 +7,18 @@ const en = {
   home: {
     monkeypoxFactTitle: 'About Monkeypox',
     monkeypoxFactText:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin vestibulum eu nibh id vehicula. Nullam lorem ligula, blandit in nisl non, euismod lobortis odio. Quisque quis sapien arcu. Etiam sed diam ultricies, venenatis ligula nec, ultrices enim. Donec eget purus quis nisi sollicitudin iaculis non vitae dui. Aenean facilisis, nisi ac laoreet aliquet, urna libero interdum leo, sed bibendum orci lacus ut massa. Duis in massa ac urna consequat interdum id ut sem. Vivamus quam lectus, dapibus et gravida eget, molestie eget urna.',
+      'Mpox (monkeypox) is an infectious disease caused by the monkeypox virus. It can cause a painful rash, enlarged lymph nodes and fever. Most people fully recover, but some get very sick. for more information visit the following',
+    link: 'link',
     appFactTitle: 'About the app',
-    appFactText:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin vestibulum eu nibh id vehicula. Nullam lorem ligula, blandit in nisl non, euismod lobortis odio. Quisque quis sapien arcu. Etiam sed diam ultricies, venenatis ligula nec, ultrices enim. Donec eget purus quis nisi sollicitudin iaculis non vitae dui. Aenean facilisis, nisi ac laoreet aliquet, urna libero interdum leo, sed bibendum orci lacus ut massa. Duis in massa ac urna consequat interdum id ut sem. Vivamus quam lectus, dapibus et gravida eget, molestie eget urna.'
+    appFactText1:
+      'Skin disease classification application leverages image recognition technology and machine learning to provide fast and accurate analysis of monkeypox, measles, chickenpox and normal skin types.',
+    appFactText2:
+      'It is important to note that while the application is a useful tool in the diagnostic process, it should not replace professional medical evaluation.',
+    appFactText3:
+      'For more information on the development of the application visit the following'
+  },
+  acquirer: {
+    webImagePickerText: 'Upload an image'
   },
   diagnose: {
     processing: 'Analyzing image'
@@ -39,13 +47,21 @@ const es = {
   home: {
     monkeypoxFactTitle: 'La Viruela del Mono',
     monkeypoxFactText:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin vestibulum eu nibh id vehicula. Nullam lorem ligula, blandit in nisl non, euismod lobortis odio. Quisque quis sapien arcu. Etiam sed diam ultricies, venenatis ligula nec, ultrices enim. Donec eget purus quis nisi sollicitudin iaculis non vitae dui. Aenean facilisis, nisi ac laoreet aliquet, urna libero interdum leo, sed bibendum orci lacus ut massa. Duis in massa ac urna consequat interdum id ut sem. Vivamus quam lectus, dapibus et gravida eget, molestie eget urna.',
+      'La viruela del mono es una enfermedad infecciosa causada por el virus de la viruela del mono. Puede causar una erupción dolorosa, inflamación de los ganglios linfáticos y fiebre. La mayoría de las personas se recuperan totalmente, pero algunas enferman gravemente. para más información visite el siguiente',
+    link: 'enlace',
     appFactTitle: 'Acerca de la app',
-    appFactText:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo nulla, bibendum eu mauris vitae, suscipit congue tellus. Proin vestibulum eu nibh id vehicula. Nullam lorem ligula, blandit in nisl non, euismod lobortis odio. Quisque quis sapien arcu. Etiam sed diam ultricies, venenatis ligula nec, ultrices enim. Donec eget purus quis nisi sollicitudin iaculis non vitae dui. Aenean facilisis, nisi ac laoreet aliquet, urna libero interdum leo, sed bibendum orci lacus ut massa. Duis in massa ac urna consequat interdum id ut sem. Vivamus quam lectus, dapibus et gravida eget, molestie eget urna.'
+    appFactText1:
+      'Aplicación de clasificación de enfermedades de la piel aprovecha la tecnología de reconocimiento de imágenes y el aprendizaje automático para proporcionar un análisis rápido y preciso de la viruela del mono, el sarampión, la varicela y los tipos normales de piel.',
+    appFactText2:
+      'Es importante destacar que, si bien la aplicación es una herramienta útil en el proceso de diagnóstico, no debe reemplazar la evaluación médica profesional.',
+    appFactText3:
+      'Para mas informacion visite del desarrollo de la aplicacion visite el siguiente'
   },
   diagnose: {
     processing: 'Analizando Imagen'
+  },
+  acquirer: {
+    webImagePickerText: 'Subir imagen'
   },
   reporting: {
     Chickenpox: 'Varicela',

@@ -1,10 +1,11 @@
 import styled from 'styled-components/native'
 import {useEffect, useRef, useState} from 'react'
 import {Camera, CameraCapturedPicture, CameraType, ImageType} from 'expo-camera'
-import {Dimensions} from 'react-native'
+import {Dimensions, Platform} from 'react-native'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import {appTheme} from 'src/styles/theme'
 import * as ImagePicker from 'expo-image-picker'
+import {i18n} from 'src/services'
 
 export interface ImageAcquirerProps {
   onImageAcquired: (
@@ -12,38 +13,45 @@ export interface ImageAcquirerProps {
   ) => void
 }
 
-export const ImagePickerComponent: React.FC<ImageAcquirerProps> = props => {
-  async function pickImage() {
-    let result: ImagePicker.ImagePickerResult =
-      await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: false,
-        aspect: [1, 1],
-        quality: 1,
-        allowsMultipleSelection: false,
-        base64: true
-      })
+async function pickImage(): Promise<ImagePicker.ImagePickerAsset | null> {
+  let result: ImagePicker.ImagePickerResult =
+    await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      allowsMultipleSelection: false
+    })
 
-    if (
-      result != null &&
-      result.canceled != null &&
-      result.canceled == false &&
-      result.assets != null &&
-      result.assets[0] != null
-    ) {
-      props.onImageAcquired(result.assets[0])
+  if (
+    result != null &&
+    result.canceled != null &&
+    result.canceled == false &&
+    result.assets != null &&
+    result.assets[0] != null
+  ) {
+    return result.assets[0]
+  }
+
+  return null
+}
+
+export const ImagePickerComponent: React.FC<ImageAcquirerProps> = props => {
+  const onPress = async () => {
+    const image = await pickImage()
+    if (image != null) {
+      props.onImageAcquired(image)
     }
   }
 
   return (
-    <S.ImagePicker onPress={pickImage}>
+    <S.ImagePicker onPress={onPress}>
       <FontAwesome name="image" size={32} color={appTheme.background} />
     </S.ImagePicker>
   )
 }
 
 export const CameraComponent: React.FC<ImageAcquirerProps> = props => {
-  const [focused, setFocused] = useState(true)
   const [cameraType, setCameraType] = useState(CameraType.back)
   const [permission, requestPermission] = Camera.useCameraPermissions()
   const ref = useRef<Camera>(null)
@@ -104,16 +112,28 @@ export const CameraComponent: React.FC<ImageAcquirerProps> = props => {
 export const DiagnoseImageAcquirer: React.FC<ImageAcquirerProps> = ({
   onImageAcquired
 }) => {
-  useEffect(() => {
-    return () => {
-      console.log('This will unmount')
+  const onPress = async () => {
+    const image = await pickImage()
+    if (image != null) {
+      onImageAcquired(image)
     }
-  }, [])
+  }
 
   return (
     <S.Wrapper>
       <S.Container>
-        <CameraComponent onImageAcquired={onImageAcquired} />
+        {Platform.OS === 'web' ? (
+          <S.WebImagePickerWrapper>
+            <S.WebImagePicker onPress={onPress}>
+              <S.WebImagePickerText>
+                {i18n.t('acquirer.webImagePickerText')}
+              </S.WebImagePickerText>
+              <FontAwesome name="image" size={64} color={appTheme.primary} />
+            </S.WebImagePicker>
+          </S.WebImagePickerWrapper>
+        ) : (
+          <CameraComponent onImageAcquired={onImageAcquired} />
+        )}
       </S.Container>
     </S.Wrapper>
   )
@@ -181,5 +201,24 @@ const S = {
       )};
   `,
   ChangeCameraTypeButton: styled.TouchableOpacity``,
-  ImagePicker: styled.TouchableOpacity``
+  ImagePicker: styled.TouchableOpacity``,
+  WebImagePickerWrapper: styled.View`
+    flex: 1;
+    background-color: ${appTheme.background};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `,
+  WebImagePicker: styled.TouchableOpacity`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  `,
+  WebImagePickerText: styled.Text`
+    font-size: ${p => p.theme.dimensions(24, 'px')};
+    font-family: ${p => p.theme.robotoBold};
+    margin-bottom: ${p => p.theme.dimensions(19, 'px')};
+    color: ${p => p.theme.title};
+  `
 }
