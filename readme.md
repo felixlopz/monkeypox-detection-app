@@ -30,6 +30,8 @@
 ### Installation
 
 ```
+  git clone https://github.com/felixlopz/monkeypox-detection-app.git
+  cd mda
   yarn install
   yarn start
 ```
