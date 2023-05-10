@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "name": "expo-router-typescript",
+  "name": "monekypox-detection-app",
   "scripts": {
     "build:android": "npx eas-cli build --platform android",
     "build:ios": "npx eas-cli build --platform ios --local",

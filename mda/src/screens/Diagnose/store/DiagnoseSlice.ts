@@ -19,21 +19,30 @@ export enum DiagnoseLabels {
 
 export type CapturedImageType = CameraCapturedPicture | ImagePickerAsset | null
 
-export interface DiagnoseState {
-  processStatus: DiagnoseProcessStatus
-  capturedImage: CapturedImageType
-  prediction: DiagnoseLabels
-}
-
 export enum DiagnoseActionTypes {
   DiagnoseSetprocessStatus = 'diagnoseSlice/setProcessStatus',
   DiagnoseSetCapturedImage = 'diagnoseSlice/setCapturedImage'
 }
 
+export interface DiagnosisResult {
+  id: string
+  name: string
+  imageUri: string
+  prediction: DiagnoseLabels
+}
+
+export interface DiagnoseState {
+  processStatus: DiagnoseProcessStatus
+  capturedImage: CapturedImageType
+  prediction: DiagnoseLabels
+  dianosisResults: Array<DiagnosisResult>
+}
+
 const initialState: DiagnoseState = {
   processStatus: DiagnoseProcessStatus.Acquiring,
   capturedImage: null,
-  prediction: DiagnoseLabels.Undetermined
+  prediction: DiagnoseLabels.Undetermined,
+  dianosisResults: []
 }
 
 const diagnoseSlice = createSlice({
@@ -60,6 +69,13 @@ const diagnoseSlice = createSlice({
     ) => ({
       ...state,
       prediction: action.payload
+    }),
+    setDiagnosisResults: (
+      state: DiagnoseState,
+      action: PayloadAction<Array<DiagnosisResult>>
+    ) => ({
+      ...state,
+      dianosisResults: action.payload
     })
   }
 })
@@ -67,8 +83,12 @@ const diagnoseSlice = createSlice({
 export const diagnoseReducer = diagnoseSlice.reducer
 
 // Actions
-export const {setProcessStatus, setCapturedImage, setPrediction} =
-  diagnoseSlice.actions
+export const {
+  setProcessStatus,
+  setCapturedImage,
+  setPrediction,
+  setDiagnosisResults
+} = diagnoseSlice.actions
 
 // Selectors
 export const selectDiagnoseState = (state: RootState) => state.diagnoseScreen
@@ -86,4 +106,9 @@ export const selectCapturedImage = createSelector(
 export const selectPrediction = createSelector(
   selectDiagnoseState,
   (state: DiagnoseState) => state.prediction
+)
+
+export const selectDiagnosisResults = createSelector(
+  selectDiagnoseState,
+  (state: DiagnoseState) => state.dianosisResults
 )

@@ -24,6 +24,9 @@ const en = {
     reportMessage: 'The result of the image analysis was:',
     analyzeOther: 'Analyze Other',
     saveResult: 'Save Result'
+  },
+  alert: {
+    dianosisSaved: 'Prediction result saved!'
   }
 }
 
@@ -53,6 +56,9 @@ const es = {
     reportMessage: 'El resultado del análisis de imagen fue:',
     analyzeOther: 'Analizar Otra Vez',
     saveResult: 'Guardar Resultado'
+  },
+  alert: {
+    dianosisSaved: '¡Resultado de predicción guardado!'
   }
 }
 

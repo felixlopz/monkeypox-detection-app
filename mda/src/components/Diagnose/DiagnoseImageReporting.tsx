@@ -4,11 +4,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import {
   DiagnoseProcessStatus,
   selectPrediction,
+  setDiagnosisResults,
   setProcessStatus
 } from 'src/screens/Diagnose/store/DiagnoseSlice'
 import styled from 'styled-components/native'
 import Button from '../Button'
-import {i18n} from 'src/services'
+import {getAllDiagnosisResult, i18n, saveDiagnosisResult} from 'src/services'
+import {Alert, Platform} from 'react-native'
 
 interface DiagnoseImageProcessingReporting {
   image: CameraCapturedPicture | ImagePickerAsset
@@ -28,13 +30,32 @@ export const DiagnoseImageReporting: React.FC<
   }
 
   const constructImageName = (): string => {
-    const prefix = 'mda_capture_'
-    const date = new Date().toISOString().split('T')[0]
+    const prefix = 'mdacapture-'
+    const date = new Date().toISOString().split('.')[0].replaceAll(':', '')
     const extension = '.jpeg'
     return prefix + date + extension
   }
 
   const imageName = constructImageName()
+
+  const saveDiagnosisResultToLocalStorage = async () => {
+    await saveDiagnosisResult({
+      id: Date.now().toString(),
+      prediction: prediction,
+      name: imageName,
+      imageUri: image.uri
+    })
+
+    const results = await getAllDiagnosisResult()
+
+    dispatch(setDiagnosisResults(results))
+
+    if (Platform.OS === 'web') {
+      alert(i18n.t('alert.dianosisSaved'))
+    } else {
+      Alert.alert(i18n.t('alert.dianosisSaved'))
+    }
+  }
 
   return (
     <S.Wrapper>
@@ -58,7 +79,10 @@ export const DiagnoseImageReporting: React.FC<
               text={i18n.t('reporting.analyzeOther')}
               onPress={onAnalyzeOtherPress}
             />
-            <S.Button text={i18n.t('reporting.saveResult')} />
+            <S.Button
+              text={i18n.t('reporting.saveResult')}
+              onPress={saveDiagnosisResultToLocalStorage}
+            />
           </S.ButtonWrapper>
         </S.ReportWrapper>
       </S.Container>
