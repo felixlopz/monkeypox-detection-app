@@ -21,6 +21,8 @@
 
 ## React Native Web App
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/241f756d-c01a-49b7-9835-9e7cfcc461f1/deploy-status)](https://app.netlify.com/sites/monkeypox-detection-app/deploys)
+
 ### [Live Demo](https://monkeypox-detection-app.netlify.app)
 
 |  Iphone 12 Pro Max Capture   |  Iphone 14 Pro Max Emulator  |
