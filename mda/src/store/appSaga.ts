@@ -1,15 +1,8 @@
-import {
-  delay,
-  put,
-  takeEvery,
-  takeLatest,
-  select,
-  call
-} from 'redux-saga/effects'
+import {put, takeLatest, call, fork} from 'redux-saga/effects'
 import {RootActionTypes} from './rootActions'
 import {getAllDiagnosisResult, loadModel} from 'src/services'
 import {LayersModel} from '@tensorflow/tfjs'
-import {useFonts, loadAsync} from 'expo-font'
+import {loadAsync} from 'expo-font'
 import {Roboto_400Regular, Roboto_700Bold} from '@expo-google-fonts/roboto'
 import {Pacifico_400Regular} from '@expo-google-fonts/pacifico'
 import {
@@ -18,7 +11,6 @@ import {
   setModelLoaded,
   setModelLoadingError
 } from './appSlice'
-import {Platform} from 'react-native'
 import {
   DiagnosisResult,
   setDiagnosisResults
