@@ -2,13 +2,19 @@
 const {getDefaultConfig} = require('expo/metro-config')
 
 // module.exports = getDefaultConfig(__dirname);
-module.exports = (async () => {
-  const defaultConfig = getDefaultConfig(__dirname)
-  const {assetExts} = defaultConfig.resolver
-  return {
-    resolver: {
-      // Add bin to assetExts
-      assetExts: [...assetExts, 'bin']
-    }
-  }
-})()
+
+const defaultConfig = getDefaultConfig(__dirname)
+const {assetExts} = defaultConfig.resolver
+const config = defaultConfig
+config.resolver.assetExts = [...assetExts, 'bin']
+
+module.exports = config
+
+// module.exports = (async () => {
+//   return {
+//     resolver: {
+//       // Add bin to assetExts
+//       assetExts: [...assetExts, 'bin']
+//     }
+//   }
+// })()
