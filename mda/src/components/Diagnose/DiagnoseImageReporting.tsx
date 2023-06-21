@@ -35,7 +35,13 @@ export const DiagnoseImageReporting: React.FC<
 
   const constructImageName = (): string => {
     const prefix = 'mdacapture-'
-    const date = new Date().toISOString().split('.')[0].replaceAll(':', '')
+    let date
+    if (Platform.OS === 'android') {
+      date = new Date().toISOString().split('.')[0]
+    } else {
+      date = new Date().toISOString().split('.')[0].replaceAll(':', '')
+    }
+
     const extension = '.jpeg'
     return prefix + date + extension
   }

@@ -10,9 +10,14 @@ import {
   setPrediction,
   setProcessStatus
 } from './DiagnoseSlice'
-import {makePrediction, processImage} from 'src/services/tensorflow'
+import {
+  _debugAndroidprocessImage,
+  makePrediction,
+  processImage
+} from 'src/services/tensorflow'
 import {selectModel} from 'src/store/appSlice'
 import {LayersModel, Rank, Tensor} from '@tensorflow/tfjs'
+import {Platform} from 'react-native'
 
 function* diagnoseProcessStatusChanged() {
   const processStatus: DiagnoseProcessStatus = yield select(
@@ -34,15 +39,35 @@ function* processImageAndMakePrediction() {
   const model: LayersModel = yield select(selectModel)
 
   try {
-    const processedImage: Tensor<Rank> = yield call(processImage, capturedImage)
+    if (Platform.OS === 'android') {
+      const processedImage: Tensor<Rank> = yield call(
+        _debugAndroidprocessImage,
+        capturedImage
+      )
 
-    const prediction: DiagnoseLabels = yield call(
-      makePrediction,
-      processedImage,
-      model
-    )
-    yield put(setPrediction(prediction))
+      const prediction: DiagnoseLabels = yield call(
+        makePrediction,
+        processedImage,
+        model
+      )
+
+      yield put(setPrediction(prediction))
+    } else {
+      const processedImage: Tensor<Rank> = yield call(
+        processImage,
+        capturedImage
+      )
+
+      const prediction: DiagnoseLabels = yield call(
+        makePrediction,
+        processedImage,
+        model
+      )
+
+      yield put(setPrediction(prediction))
+    }
   } catch (error) {
+    console.log(error)
     yield put(setPrediction(DiagnoseLabels.Undetermined))
   }
 }
