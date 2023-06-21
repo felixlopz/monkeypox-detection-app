@@ -1,10 +1,11 @@
 import styled from 'styled-components/native'
 import {Stack} from 'expo-router'
 import {i18n} from 'src/services/i18n'
-import {DiagnoseImageAcquirer, DiagnoseImageReporting} from 'src/components'
 import {CameraCapturedPicture} from 'expo-camera'
 import {ImagePickerAsset} from 'expo-image-picker'
+import DiagnoseImageAcquirer from 'src/components/Diagnose/DiagnoseImageAcquirer'
 import DiagnoseImageProcessing from 'src/components/Diagnose/DiagnoseImageProcessing'
+import DiagnoseImageReporting from 'src/components/Diagnose/DiagnoseImageReporting'
 
 import {connect, useDispatch, useSelector} from 'react-redux'
 import {

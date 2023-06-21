@@ -1,11 +1,11 @@
 import styled from 'styled-components/native'
-import {useEffect, useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import {Camera, CameraCapturedPicture, CameraType, ImageType} from 'expo-camera'
 import {Dimensions, Platform} from 'react-native'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import {appTheme} from 'src/styles/theme'
 import * as ImagePicker from 'expo-image-picker'
-import {i18n} from 'src/services'
+import i18n from 'src/services/i18n'
 
 export interface ImageAcquirerProps {
   onImageAcquired: (

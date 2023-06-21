@@ -8,8 +8,12 @@ import {
   setProcessStatus
 } from 'src/screens/Diagnose/store/DiagnoseSlice'
 import styled from 'styled-components/native'
-import Button from '../Button'
-import {getAllDiagnosisResult, i18n, saveDiagnosisResult} from 'src/services'
+import Button from 'src/components/Button'
+import {
+  getAllDiagnosisResult,
+  saveDiagnosisResult
+} from 'src/services/asyncStorage'
+import {i18n} from 'src/services/i18n'
 import {Alert, Platform} from 'react-native'
 
 interface DiagnoseImageProcessingReporting {

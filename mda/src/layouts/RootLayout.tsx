@@ -1,10 +1,10 @@
 import 'expo-dev-client'
 import {StatusBar} from 'expo-status-bar'
 import {ThemeProvider} from 'styled-components/native'
-import {appTheme} from '../styles/theme'
+import {appTheme} from 'src/styles/theme'
 import {Provider} from 'react-redux'
-import {store} from '../store'
-import {Navigation} from 'src/components'
+import {store} from 'src/store/store'
+import Navigation from 'src/components/Navigation'
 
 export const RootLayout = () => {
   return (

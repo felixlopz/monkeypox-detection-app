@@ -1,9 +1,11 @@
 import styled from 'styled-components/native'
 import {Stack} from 'expo-router'
 import {appTheme} from '../styles/theme'
-import {useEffect, useState} from 'react'
-import {DiagnosisResult, selectDiagnosisResults} from './Diagnose'
-import {getAllDiagnosisResult, i18n, removeAllResults} from 'src/services'
+import {
+  DiagnosisResult,
+  selectDiagnosisResults
+} from './Diagnose/store/DiagnoseSlice'
+import {i18n} from 'src/services/i18n'
 import {Image, ListRenderItem} from 'react-native'
 import {useSelector} from 'react-redux'
 

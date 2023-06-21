@@ -1,5 +1,5 @@
 import {ImageResult, manipulateAsync, SaveFormat} from 'expo-image-manipulator'
-import {CapturedImageType} from 'src/screens'
+import {CapturedImageType} from 'src/screens/Diagnose/store/DiagnoseSlice'
 
 export async function resizeImageForModelPrediction(
   image: CapturedImageType

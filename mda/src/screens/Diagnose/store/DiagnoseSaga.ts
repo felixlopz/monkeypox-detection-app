@@ -10,7 +10,7 @@ import {
   setPrediction,
   setProcessStatus
 } from './DiagnoseSlice'
-import {makePrediction, processImage} from 'src/services'
+import {makePrediction, processImage} from 'src/services/tensorflow'
 import {selectModel} from 'src/store/appSlice'
 import {LayersModel, Rank, Tensor} from '@tensorflow/tfjs'
 

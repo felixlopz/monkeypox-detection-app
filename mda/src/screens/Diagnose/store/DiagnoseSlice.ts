@@ -1,5 +1,5 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '../../../store'
+import {RootState} from 'src/store/rootReducer'
 import {CameraCapturedPicture} from 'expo-camera'
 import {ImagePickerAsset} from 'expo-image-picker'
 
