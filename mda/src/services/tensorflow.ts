@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs'
-import {LayersModel} from '@tensorflow/tfjs'
+import * as FileSystem from 'expo-file-system'
 import {
   bundleResourceIO,
   decodeJpeg,
@@ -21,7 +21,7 @@ const modelWeights = [
 
 const ModelInputShape = [1, 224, 224, 3]
 
-export async function loadModel(): Promise<LayersModel | null> {
+export async function loadModel(): Promise<tf.LayersModel | null> {
   try {
     await tf.ready()
     const model = await tf.loadLayersModel(
@@ -49,9 +49,30 @@ export async function processImage(
   return reshapedArray
 }
 
+export async function _debugAndroidprocessImage(
+  image: CapturedImageType
+): Promise<tf.Tensor<tf.Rank>> {
+  if (image == null) {
+    throw new Error('No image available')
+  }
+  const imageUri = image.uri
+  const imageBase64 = await FileSystem.readAsStringAsync(imageUri, {
+    encoding: FileSystem.EncodingType.Base64
+  })
+  const imageBuffer = tf.util.encodeString(imageBase64, 'base64').buffer
+  const imageData = new Uint8Array(imageBuffer)
+  const imageTensor = decodeJpeg(imageData)
+
+  const resizedImage = tf.image.resizeBilinear(imageTensor, [224, 224])
+  const normalizedImage = tf.div(resizedImage, 255.0)
+  const reshapedImage = tf.reshape(normalizedImage, ModelInputShape)
+  tf.dispose([normalizedImage, imageTensor])
+  return reshapedImage
+}
+
 export async function makePrediction(
   processedImage: tf.Tensor<tf.Rank>,
-  model: LayersModel
+  model: tf.LayersModel
 ): Promise<DiagnoseLabels> {
   if (model == null) {
     return DiagnoseLabels.Undetermined

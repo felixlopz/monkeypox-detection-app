@@ -96,11 +96,11 @@ const S = {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: appTheme.backdround,
+    backgroundColor: appTheme.background,
     height: Number(dimensions(100, ''))
   },
   tabBar: {
-    backgroundColor: appTheme.backdround,
+    backgroundColor: appTheme.background,
     height: Number(dimensions(90, ''))
   }
 })
