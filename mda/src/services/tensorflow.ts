@@ -49,6 +49,8 @@ export async function processImage(
   return reshapedArray
 }
 
+// Adding this method because Andorid does not support fetch, it is slower because the use of tf.image.resizeBilinear
+// https://github.com/tensorflow/tfjs/issues/3186
 export async function _debugAndroidprocessImage(
   image: CapturedImageType
 ): Promise<tf.Tensor<tf.Rank>> {
