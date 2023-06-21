@@ -1,5 +1,8 @@
 import {combineReducers} from '@reduxjs/toolkit'
-import {diagnoseReducer, DiagnoseState} from '../screens'
+import {
+  diagnoseReducer,
+  DiagnoseState
+} from '../screens/Diagnose/store/DiagnoseSlice'
 import {appReducer, AppState} from './appSlice'
 
 export interface RootState {

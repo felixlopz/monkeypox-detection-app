@@ -1,5 +1,5 @@
 import {all, fork} from 'redux-saga/effects'
-import {diagnoseSagaWatcher} from '../screens'
+import {diagnoseSagaWatcher} from '../screens/Diagnose/store/DiagnoseSaga'
 import {appSagaWatcher} from './appSaga'
 
 export function* rootSaga() {

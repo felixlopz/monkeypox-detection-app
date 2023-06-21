@@ -1,6 +1,7 @@
 import {put, takeLatest, call, fork} from 'redux-saga/effects'
 import {RootActionTypes} from './rootActions'
-import {getAllDiagnosisResult, loadModel} from 'src/services'
+import {getAllDiagnosisResult} from 'src/services/asyncStorage'
+import {loadModel} from 'src/services/tensorflow'
 import {LayersModel} from '@tensorflow/tfjs'
 import {loadAsync} from 'expo-font'
 import {Roboto_400Regular, Roboto_700Bold} from '@expo-google-fonts/roboto'

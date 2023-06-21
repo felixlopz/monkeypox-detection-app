@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 import {ActivityIndicator} from 'react-native'
-import {appTheme} from '../styles/theme'
+import {appTheme} from 'src/styles/theme'
 import {useAssets} from 'expo-asset'
 
 export default function Spinner() {
@@ -15,7 +15,11 @@ export default function Spinner() {
       <S.ImageWrapper>
         <S.Image source={{uri: assets[0].uri}} />
       </S.ImageWrapper>
-      <ActivityIndicator testID="activity-indicator" color={appTheme.primary} size="large" />
+      <ActivityIndicator
+        testID="activity-indicator"
+        color={appTheme.primary}
+        size="large"
+      />
     </S.Spinner>
   )
 }
