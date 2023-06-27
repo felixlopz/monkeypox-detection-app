@@ -22,12 +22,15 @@ const modelWeights = [
 const ModelInputShape = [1, 224, 224, 3]
 
 export async function loadModel(): Promise<tf.LayersModel | null> {
+  const startTime = performance.now()
   try {
     await tf.ready()
     const model = await tf.loadLayersModel(
       bundleResourceIO(modelJson, [...modelWeights])
     )
 
+    const endTime = performance.now()
+    console.log(`Loading model took ${endTime - startTime} milliseconds.`)
     return model
   } catch (error) {
     console.log(error)
@@ -38,6 +41,8 @@ export async function loadModel(): Promise<tf.LayersModel | null> {
 export async function processImage(
   image: CapturedImageType
 ): Promise<tf.Tensor<tf.Rank>> {
+  const startTime = performance.now()
+
   const resizedImage = await resizeImageForModelPrediction(image)
   const response = await fetch(resizedImage.uri, {}, {isBinary: true})
   const imageData = await response.arrayBuffer()
@@ -46,6 +51,10 @@ export async function processImage(
   const normalizedArray = tf.div(imageTensor, 255.0)
   const reshapedArray = tf.reshape(normalizedArray, ModelInputShape)
   tf.dispose([normalizedArray, imageTensor])
+
+  const endTime = performance.now()
+  console.log(`Image processing took ${endTime - startTime} milliseconds.`)
+
   return reshapedArray
 }
 
@@ -54,6 +63,8 @@ export async function processImage(
 export async function _debugAndroidprocessImage(
   image: CapturedImageType
 ): Promise<tf.Tensor<tf.Rank>> {
+  const startTime = performance.now()
+
   if (image == null) {
     throw new Error('No image available')
   }
@@ -69,6 +80,12 @@ export async function _debugAndroidprocessImage(
   const normalizedImage = tf.div(resizedImage, 255.0)
   const reshapedImage = tf.reshape(normalizedImage, ModelInputShape)
   tf.dispose([normalizedImage, imageTensor])
+
+  const endTime = performance.now()
+  console.log(
+    `Android: image processing took ${endTime - startTime} milliseconds.`
+  )
+
   return reshapedImage
 }
 
@@ -76,6 +93,8 @@ export async function makePrediction(
   processedImage: tf.Tensor<tf.Rank>,
   model: tf.LayersModel
 ): Promise<DiagnoseLabels> {
+  const startTime = performance.now()
+
   if (model == null) {
     return DiagnoseLabels.Undetermined
   }
@@ -91,6 +110,7 @@ export async function makePrediction(
   const predictedClass = Object.values(DiagnoseLabels)[maxProbabilityIndex]
 
   tf.dispose([processedImage, result])
-
+  const endTime = performance.now()
+  console.log(`Prediction ${endTime - startTime} milliseconds.`)
   return predictedClass
 }
