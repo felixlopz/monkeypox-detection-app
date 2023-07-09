@@ -8,16 +8,20 @@
 
 ### Metrics
 
-| Metric        | Value  |
-| ------------- | ------ |
-| F1 Score      | 0.9492 |
-| Test Accuracy | 0.9495 |
-| Precision     | 0.9493 |
-| Recall        | 0.9490 |
+| Metric    | Value  |
+| --------- | ------ |
+| F1 Score  | 0.9623 |
+| Accuracy  | 0.9613 |
+| Precision | 0.9628 |
+| Recall    | 0.9628 |
 
 ### Confusion Matrix
 
 ![Confusion Matrix](/images/confusion-matrix.png)
+
+### AUC ROC Scores
+
+![AUC ROC Scores](/images/auc-roc-scores.png)
 
 ## React Native Web App
 
@@ -28,6 +32,14 @@
 |  Iphone 12 Pro Max Capture   |  Iphone 14 Pro Max Emulator  |
 | :--------------------------: | :--------------------------: |
 | ![](/images/thumbnail-1.png) | ![](/images/thumbnail-2.png) |
+
+### h5 model to json
+
+```bash
+!pip install tensorflowjs
+
+!tensorflowjs_converter --input_format=keras --output_format=tfjs_layers_model /models/saved_model.h5 /models/tfjs
+```
 
 ### Installation
 
