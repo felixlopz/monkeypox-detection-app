@@ -70,8 +70,8 @@ const es = {
     Normal: 'Normal',
     Undetermined: 'Indeterminado',
     reportMessage: 'El resultado del análisis de imagen fue:',
-    analyzeOther: 'Analizar Otra Vez',
-    saveResult: 'Guardar Resultado'
+    analyzeOther: 'Analizar',
+    saveResult: 'Guardar'
   },
   alert: {
     dianosisSaved: '¡Resultado de predicción guardado!'
